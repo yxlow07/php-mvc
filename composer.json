@@ -1,0 +1,21 @@
+{
+    "name": "yxlow/mvc",
+    "description": "MVC Framework built with design pattern of dependency injection and containers",
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/"
+        },
+        "files": [
+            "core/helpers.php"
+        ]
+    },
+    "authors": [
+        {
+            "name": "yxlow07",
+            "email": "m-8717828@moe-dl.edu.my"
+        }
+    ]
+}
