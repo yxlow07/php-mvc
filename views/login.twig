@@ -1,0 +1,67 @@
+{% extends 'user_layout.twig' %}
+{% block content %}
+    <main class="w-full max-w-xl mx-auto p-6">
+        <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-4 sm:p-7">
+                <div class="text-center">
+                    <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Login</h1>
+                    <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
+                        No account?
+                        <a class="c-links" href="{{ path() }}/register">
+                            Register now!
+                        </a>
+                    </p>
+                </div>
+
+                <div class="mt-5">
+                    <!-- Form -->
+                    <form class="mt-6" action="" method="post">
+                        <div class="grid gap-y-4">
+                            <!-- Form Group for username -->
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <label for="username" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Username</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input name="username" placeholder="Enter your school number here" value="{{ model.username }}" type="text" class="c-input {{ model.errors.username is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.username is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                    {% if model.errors.username is not empty %}
+                                        <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.username[0] }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End Form Group for username -->
+
+                            <!-- Form Group for password -->
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Password</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input name="password" placeholder="Enter your password here" value="{{ model.password }}" type="password" class="c-input {{ model.errors.password is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.password is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                    {% if model.errors.password is not empty %}
+                                        <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.password[0] }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End Form Group for password -->
+
+                            <!-- Checkbox -->
+                            <div class="flex items-center">
+                                <div class="flex">
+                                    <input name="rememberMe" value="true" type="checkbox" class="text-blue-600 focus:ring-blue-500 h-4 w-4 border-gray-300 rounded">
+                                </div>
+                                <div class="ms-3">
+                                    <label for="rememberMe" class="text-sm dark:text-white">Remember me</label>
+                                </div>
+                            </div>
+                            <!-- End Checkbox -->
+
+                            <button type="submit" class="c-form-btn">Login</button>
+                        </div>
+                    </form>
+                    <!-- End Form -->
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}

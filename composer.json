@@ -1,0 +1,23 @@
+{
+    "name": "yxlow/study-scroll",
+    "description": "Reels, but for A Levels",
+    "type": "project",
+    "require": {
+        "fakerphp/faker": "^1.23",
+        "vlucas/phpdotenv": "^5.6",
+        "twig/twig": "3.19.0.0"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "core\\": "core/",
+            "app\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yu Xuan",
+            "email": "m-8717828@moe-dl.edu.my"
+        }
+    ]
+}

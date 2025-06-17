@@ -1,0 +1,44 @@
+{% extends 'user_layout.twig' %}
+{% block title %}Profile{% endblock %}
+{% block content %}
+    <div class="bg-white dark:bg-slate-800 dark:text-white shadow-xl rounded-lg py-3 border-gray-200 border-2">
+    <div class="photo-wrapper p-2">
+        <img class="w-32 h-32 rounded-full mx-auto" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="{{ model.name }}">
+    </div>
+    <div class="p-2">
+        <h3 class="text-center dark:text-white text-3xl text-gray-900 font-medium leading-8">{{ model.name }}</h3>
+        <div class="text-center text-gray-400 text-xl font-semibold">
+            <p>User</p>
+        </div>
+        <table class="text-xl my-3 mx-auto">
+            <tbody>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">ID</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.id ?? model.adminId }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Class</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.class ?? "" }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Phone</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.phone ?? "" }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Created At</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.created_at ?? 'N/A' }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Updated At</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.updated_at ?? 'N/A' }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

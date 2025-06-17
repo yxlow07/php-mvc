@@ -1,0 +1,29 @@
+{% extends 'user_layout.twig' %}
+{% block title %}Homepage{% endblock %}
+{% block content %}
+    <div class="flex-1 flex items-center justify-center overscroll-none" id="content">
+        <div class="text-center">
+            <p class="text-gray-600 dark:text-gray-300 mb-8">Please use the buttons below to navigate the system</p>
+            <div class="flex justify-between">
+                {% for route, values in app.nav %}
+                    <div class="hs-tooltip flex flex-col items-center">
+                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path(route) }}">
+                            {% if values.2 %}
+                                <i class="{% if app.request.path == route %} current-page {% endif %}">
+                                    {{ values.0[0] }}
+                                </i>
+                            {% else %}
+                                <i class="material-icons fa-xl {% if app.request.path == route %} current-page {% endif %}">
+                                    {{ values.0 }}
+                                </i>
+                            {% endif %}
+                        </a>
+                        <div class="pt-3">
+                            <a href="{{ path(route) }}" class="c-links"><span>{{ values.1 }}</span></a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

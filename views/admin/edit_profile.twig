@@ -1,0 +1,98 @@
+{% extends 'user_layout.twig' %}
+{% block title %}Edit Profile{% endblock %}
+{% block content %}
+    <div class="bg-white dark:bg-slate-800 dark:text-white shadow-xl rounded-lg py-3 border-gray-200 border-2">
+        <div class="photo-wrapper p-2">
+            <img class="w-32 h-32 rounded-full mx-auto" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="{{ model.name }}">
+        </div>
+        <div class="p-2">
+            <h3 class="text-center dark:text-white text-3xl text-gray-900 font-medium leading-8">{{ model.name }}</h3>
+            <div class="text-center text-gray-400 text-xl font-semibold">
+                <p>User</p>
+            </div>
+            <form action="" method="post">
+                <table class="text-xl my-3 mx-auto">
+                    <tbody>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">ID</td>
+                        <td>:</td>
+                        <td class="px-2 py-2">
+                            <div class="mt-2 w-full">
+                                <input name="id" placeholder="Enter school number here" value="{{ model.id }}" type="text" class="w-full c-input {{ model.errors.id is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.id is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                {% if model.errors.id is not empty %}
+                                    <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.id[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">Class</td>
+                        <td>:</td>
+                        <td class="px-2 py-2">
+                            <div class="mt-2 w-full">
+                                <input name="class" placeholder="Enter class here" value="{{ model.class }}" type="text" class="w-full c-input {{ model.errors.class is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.class is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                {% if model.errors.class is not empty %}
+                                    <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.class[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">Phone</td>
+                        <td>:</td>
+                        <td class="px-2 py-2">
+                            <div class="mt-2 w-full">
+                                <input name="phone" placeholder="Enter phone number here" value="{{ model.phone }}" type="text" class="w-full c-input {{ model.errors.phone is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.phone is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                {% if model.errors.phone is not empty %}
+                                    <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.phone[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">Name</td>
+                        <td>:</td>
+                        <td class="px-2 py-2">
+                            <div class="mt-2 w-full">
+                                <input name="name" placeholder="Enter name here" value="{{ model.name }}" type="text" class="w-full c-input {{ model.errors.name is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.name is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                {% if model.errors.name is not empty %}
+                                    <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.name[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">New Password<br class="block h-0" style="line-height: 0"><small class="text-xs m-0 p-0">(Only fill if you want to update password)</small></td>
+                        <td>:</td>
+                        <td class="px-2 py-2">
+                            <div class="mt-2 w-full">
+                                <input name="password" placeholder="Enter new password here only if you want to update password" type="password" class="w-full c-input {{ model.errors.password is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.password is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                {% if model.errors.password is not empty %}
+                                    <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.password[0] }}</div>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">Created At</td>
+                        <td>:</td>
+                        <td class="px-2 py-2">{{ model.created_at ?? 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <td class="text-right px-2 py-2 text-gray-500 font-bold">Updated At</td>
+                        <td>:</td>
+                        <td class="px-2 py-2">{{ model.updated_at ?? 'N/A' }}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="3" class="w-full text-center">
+                            <button type="submit" class="c-btn mt-3">
+                                Submit Changes
+                            </button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock %}

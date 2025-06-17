@@ -1,0 +1,17 @@
+#!/usr/bin/env php
+
+<?php
+
+require_once __DIR__.'/vendor/autoload.php';
+
+//$public_path = escapeshellarg("public");
+//
+//exec("cd $public_path && php -S localhost:8080", $output, $return_code);
+//
+//if ($return_code !== 0) {
+//    echo "Script failed to run with return code $return_code.";
+//    var_dump($output);
+//}
+
+// TODO: Generate admin from cmd line
+exec("");

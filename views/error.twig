@@ -1,0 +1,22 @@
+{% extends 'user_layout.twig' %}
+{% block title %} Error {{ error.getCode() }}{% endblock %}
+{% block content %}
+    <div>
+        <h1 class="text-6xl font-bold mb-8 text-center text-red-500">Oh, No!! An error occurred!</h1>
+    </div>
+    <div>
+        <h2 class="text-2xl font-bold mb-4 dark:text-red-500">Error Code</h2>
+        <p class="text-red-500 font-bold">{{ error.getCode() }}</p>
+    </div>
+    <br>
+    <div>
+        <h2 class="text-2xl font-bold mb-4 dark:text-red-500">Error Message</h2>
+        <p class="text-red-500 font-bold">{{ error.getMessage }}</p>
+    </div>
+    <br>
+    <div>
+        <h2 class="text-2xl font-bold mb-4 dark:text-red-500">Stack Trace</h2>
+        <p class="dark:text-gray-300 whitespace-pre-wrap">{{ error.getTraceAsString() }}</p>
+    </div>
+{% endblock %}
+

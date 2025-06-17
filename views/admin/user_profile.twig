@@ -1,0 +1,29 @@
+{% extends 'user_layout.twig' %}
+
+{% block title %}User: Profile{% endblock %}
+{% block content %}
+    <div class="flex flex-col w-full ">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="overflow-hidden">
+                    <table class="max-w-screen-xl w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-center">
+                            {% for key, value in data %}
+                                <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                    <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200 uppercase">{{ key }}</td>
+                                    <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">
+                                        {% if value is not iterable %}
+                                            {{ value }}
+                                        {% else %}
+                                            {{ value|json_encode|raw }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

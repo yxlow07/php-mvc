@@ -1,0 +1,96 @@
+{% extends 'user_layout.twig' %}
+
+{% block title %}User Records{% endblock %}
+{% block content %}
+    <div class="flex flex-col w-full ">
+        <div class="-m-1.5 overflow-x-auto">
+            <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="overflow-hidden">
+                    <table class="max-w-screen-xl w-full divide-y divide-gray-200 dark:divide-gray-700">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User ID</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User Name</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User Class</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Read, Update, Delete Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-center">
+                        {% for user in users %}
+                            {% set id = user.id %}
+                            <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ id }}</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.name }}</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.class }}</td>
+                                <td class="px-0 py-3 whitespace-normal text-center text-gray-700 dark:text-gray-300 text-sm font-medium">
+                                    <!-- Icon for READ start -->
+                                    <div class="hs-tooltip inline-block [--placement:bottom]">
+                                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path() }}/users/{{ id }}/read">
+                                            <i class="fa-duotone fa-book fa-xl"></i>
+                                            <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Read user data</span>
+                                        </a>
+                                    </div>
+                                    <!-- Icon for READ end -->
+
+                                    <!-- Icon for EDIT start -->
+                                    <div class="hs-tooltip inline-block [--placement:bottom]">
+                                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path() }}/users/{{ id }}/update">
+                                            <i class="fa-duotone fa-pencil fa-xl"></i>
+                                            <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Update user data</span>
+                                        </a>
+                                    </div>
+                                    <!-- Icon for EDIT end -->
+
+                                    <!-- Icon for DELETE start -->
+                                    <div class="hs-tooltip inline-block [--placement:bottom]">
+                                        <a class="delete-user c-nav-items-tooltip hs-tooltip-toggle" href="#" data-id="{{ id }}">
+                                            <i class="fa-duotone fa-trash fa-xl"></i>
+                                            <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Delete record</span>
+                                        </a>
+                                    </div>
+                                    <!-- Icon for DELETE end -->
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-4 space-x-5 flex justify-between">
+        <a href="{{ path() }}/users/create" class="inline-block px-4 py-2 bg-teal-500 dark:bg-teal-700 dark:hover:bg-teal-900 text-white rounded-md hover:bg-teal-600 transition duration-300">Make new user record <i class="fa-duotone fa-user-plus"></i></a>
+        <a href="{{ path() }}/tables/upload" class="inline-block px-4 py-2 bg-gray-400 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 dark:text-white rounded-md hover:bg-gray-600 hover:text-gray-300 transition duration-300">Upload Table CSV <i class="fa-duotone fa-upload"></i></a>
+        <a href="{{ path() }}/users/upload" class="inline-block px-4 py-2 bg-gray-400 text-gray-700 dark:bg-gray-700 dark:hover:bg-gray-800 dark:text-white rounded-md hover:bg-gray-600 hover:text-gray-300 transition duration-300">Upload Users CSV <i class="fa-duotone fa-upload"></i></a>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.delete-user').on('click', function(e) {
+                e.preventDefault();
+                let id = $(this).data('id');
+                const confirmDelete = window.confirm(`Are you sure you want to delete ${id}'s record?`)
+
+                if (confirmDelete) {
+                    $.ajax({
+                        url: `{{path()}}/users/${id}/delete`,
+                        dataType: 'json',
+                        success: function (res) {
+                            if (res.success) {
+                                alert(`Deleted records of user ${id} successfully!`);
+                            } else {
+                                alert('Internal error occurred, unable to delete!');
+                            }
+                        },
+                        error: function (e) {
+                            alert(`Failed to delete records of user ${id}`);
+                            console.error(e);
+                        }
+                    }).then(function () {
+                        location.reload();
+                    })
+                }
+            });
+        })
+    </script>
+{% endblock %}

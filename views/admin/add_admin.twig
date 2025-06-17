@@ -1,0 +1,66 @@
+{% extends 'user_layout.twig' %}
+{% block content %}
+    <main class="w-full max-w-md mx-auto p-6">
+        <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+            <div class="p-4 sm:p-7">
+                <div class="text-center">
+                    <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Add New Admin</h1>
+                </div>
+
+                <div class="mt-5">
+                    <!-- Registration Form -->
+                    <form class="mt-6" action="" method="post">
+                        <div class="grid gap-y-4">
+                            <!-- Form Group for idAdmin -->
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <label for="idAdmin" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Admin ID</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input name="idAdmin" value="{{ model.idAdmin }}" type="text" class="c-input {{ model.errors.idAdmin is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.idAdmin is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                    {% if model.errors.idAdmin is not empty %}
+                                        <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.idAdmin[0] }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End Form Group for idAdmin -->
+
+                            <!-- Form Group for adminName -->
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <label for="adminName" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Admin Name</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input name="adminName" value="{{ model.adminName }}" type="text" class="c-input {{ model.errors.adminName is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.adminName is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                    {% if model.errors.adminName is not empty %}
+                                        <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.adminName[0] }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End Form Group for adminName -->
+
+                            <!-- Form Group for password -->
+                            <div>
+                                <div class="flex items-center justify-between">
+                                    <label for="password" class="block text-sm font-medium leading-6 text-gray-900 dark:text-white">Password</label>
+                                </div>
+                                <div class="mt-2">
+                                    <input name="password" value="{{ model.password }}" type="password" class="c-input {{ model.errors.password is not empty ? 'ring-red-500' : 'dark:ring-gray-300' }} focus:{{ model.errors.password is not empty ? 'ring-red-500 focus:border-red-500' : 'ring-blue-500 focus:border-blue-500' }}">
+                                    {% if model.errors.password is not empty %}
+                                        <div class="mt-1 text-red-500 text-sm first-letter:capitalize">{{ model.errors.password[0] }}</div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <!-- End Form Group for password -->
+
+
+
+                            <button type="submit" class="c-form-btn">Submit</button>
+                        </div>
+                    </form>
+                    <!-- End Registration Form -->
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
