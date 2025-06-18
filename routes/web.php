@@ -28,6 +28,6 @@ $routes->GET('/crud_users', [AdminController::class, 'list_users'])->only($admin
 $routes->GETPOST('/users/create', [AdminController::class, 'createUsers'])->only($admin);
 $routes->GETPOST('/users/upload', [AdminController::class, 'uploadUsers'])->only($admin);
 $routes->GETPOST('/users/{id}/{action}', [AdminController::class, 'crud_users'])->only($admin);
-$routes->GETPOST('/find_user', [AdminController::class, 'find_student'])->only($admin);
+$routes->GETPOST('/find_user', [AdminController::class, 'find_user'])->only($admin);
 
 return $routes;

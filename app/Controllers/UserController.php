@@ -38,7 +38,7 @@ class UserController extends Controller
             'general' => [
                 '/' => ['home', 'Homepage'],
             ],
-            'end' => [
+            'authenticated' => [
                 '/logout' => ['logout', 'Logout'],
             ],
             'guest' => [
@@ -48,10 +48,19 @@ class UserController extends Controller
         ];
 
 
-        $nav = [
-            ...$navItems['general'],
-            ...(AuthMiddleware::execute() ? (App::$app->user instanceof UserModel ? $navItems['user'] + $navItems['end'] : $navItems['admin']+ $navItems['end']) : $navItems['guest']),
-        ];
+        $nav = [...$navItems['general']];
+
+        if (AuthMiddleware::execute()) {
+            $user = App::$app->user;
+
+            if ($user instanceof UserModel && $user->isAdmin()) {
+                $nav = [...$nav, ...$navItems['admin']];
+            }
+
+            $nav = [...$nav, ...$navItems['user'], ...$navItems['authenticated']];
+        } else {
+            $nav = [...$nav, ...$navItems['guest']];
+        }
 
         App::$app->nav = $nav;
     }

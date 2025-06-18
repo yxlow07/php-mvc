@@ -24,9 +24,14 @@
                     {% for route, values in app.nav %}
                         <a class="c-nav-items-tooltip" href="{{ path(route) }}">
                             {% if values.2 %}
-                                <span class="material-symbols-outlined">{{ values.1[0] }}</span>
+                                <span class="material-icons-stack {% if app.request.path == route %} current-page {% endif %}">
+                                    <i class="material-icons material-icons-stack-2x">{{ values.0[0] }}</i>
+                                    <i class="material-icons material-icons-stack-1x">{{ values.0[1] }}</i>
+                                </span>
                             {% else %}
-                                <i class="material-icons">{{ values.0 }}</i>
+                                <i class="material-icons {% if app.request.path == route %} current-page {% endif %}">
+                                    {{ values.0 }}
+                                </i>
                             {% endif %}
                         </a>
                     {% endfor %}

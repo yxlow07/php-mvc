@@ -11,12 +11,16 @@ class ProfileModel extends ValidationModel
     const UPDATE_PROFILE = 1;
     const UPDATE_PASSWORD = 2;
 
-    public string $id = '';
-    public string $name = '';
-    public string $class = '';
-    public string $phone = '';
+    public string $uuid = '';
+    public string $username = '';
+    public ?string $name = '';
+    public ?string $phone = '';
     public string $password = '';
-    public string|false|array $info = ''; // JSON
+    public ?string $bio = '';
+    public ?string $profilePictureId = '';
+    public string|array|false|null $subjects = []; // JSON
+    public string $email = '';
+    public string|false|array|null $info = ''; // JSON
     public bool $isAdmin = false;
     public string $created_at = '';
     public string $updated_at = '';

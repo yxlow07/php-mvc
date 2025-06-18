@@ -11,11 +11,11 @@ class GuestMiddleware extends BaseMiddleware
 
     public function execute()
     {
-        if (!isset($_SESSION['user']) && !(App::$app->session->get('user') instanceof UserModel)):
-            return true;
-        else:
+        if (isset($_SESSION['user']) && App::$app->session->get('user') instanceof UserModel):
             App::$app->session->setFlashMessage('error', 'Already logged in!');
             redirect();
+        else:
+            return true;
         endif;
     }
 

@@ -3,29 +3,54 @@
 {% block content %}
     <div class="bg-white dark:bg-slate-800 dark:text-white shadow-xl rounded-lg py-3 border-gray-200 border-2">
     <div class="photo-wrapper p-2">
-        <img class="w-32 h-32 rounded-full mx-auto" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="{{ model.name }}">
+        {% if model.profilePictureId is not null and model.profilePictureId is not empty %}
+            <img class="w-32 h-32 rounded-full mx-auto" src="{{ model.profilePictureId }}" alt="{{ model.username }}">
+        {% else %}
+            <img class="w-32 h-32 rounded-full mx-auto" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="{{ model.username }}">
+        {% endif %}
     </div>
     <div class="p-2">
         <h3 class="text-center dark:text-white text-3xl text-gray-900 font-medium leading-8">{{ model.name }}</h3>
         <div class="text-center text-gray-400 text-xl font-semibold">
-            <p>User</p>
+            <p>
+                {% if model.isAdmin %}
+                    Admin
+                {% else %}
+                    User
+                {% endif %}
+            </p>
         </div>
         <table class="text-xl my-3 mx-auto">
             <tbody>
                 <tr>
-                    <td class="text-right px-2 py-2 text-gray-500 font-bold">ID</td>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Username</td>
                     <td>:</td>
-                    <td class="px-2 py-2">{{ model.id ?? model.adminId }}</td>
+                    <td class="px-2 py-2">{{ model.username }}</td>
                 </tr>
                 <tr>
-                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Class</td>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Email</td>
                     <td>:</td>
-                    <td class="px-2 py-2">{{ model.class ?? "" }}</td>
+                    <td class="px-2 py-2">{{ model.email }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Name</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.name ?? "Anonymous" }}</td>
                 </tr>
                 <tr>
                     <td class="text-right px-2 py-2 text-gray-500 font-bold">Phone</td>
                     <td>:</td>
-                    <td class="px-2 py-2">{{ model.phone ?? "" }}</td>
+                    <td class="px-2 py-2">{{ model.phone }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Bio</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.bio }}</td>
+                </tr>
+                <tr>
+                    <td class="text-right px-2 py-2 text-gray-500 font-bold">Subjects</td>
+                    <td>:</td>
+                    <td class="px-2 py-2">{{ model.subjects | json_encode }}</td>
                 </tr>
                 <tr>
                     <td class="text-right px-2 py-2 text-gray-500 font-bold">Created At</td>

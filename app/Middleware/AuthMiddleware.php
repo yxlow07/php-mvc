@@ -26,9 +26,9 @@ class AuthMiddleware
 
         if (is_null($id) || is_null($sessionId)) return;
 
-        // Session ID and user ID is set, can check from database
+        // Session ID and user ID are set, can check from database
         /** @var UserModel $user */
-        $user = LoginModel::getUserFromDB($id, true);
+        $user = LoginModel::getUserFromDB($id);
 
         if (!$user) {
             Cookies::unsetCookies(['sessionID', 'id']);
@@ -45,6 +45,6 @@ class AuthMiddleware
 
     public static function execute(): bool
     {
-        return App::$app->user instanceof UserModel || App::$app->user instanceof AdminModel;
+        return App::$app->user instanceof UserModel;
     }
 }

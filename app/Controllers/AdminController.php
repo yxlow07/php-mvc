@@ -52,7 +52,6 @@ class AdminController extends Controller
     }
 
     /**
-     * @throws ViewNotFoundException
      * @throws UserNotFoundException|MethodNotAllowedException
      */
     public function crud_users($id, $action): void
@@ -129,11 +128,13 @@ class AdminController extends Controller
 
     public function add_admin(): void
     {
-        $model = new AdminModel();
+        $model = new UserModel();
         if (App::$app->request->isMethod('post')) {
-            $model = new AdminModel(App::$app->request->data());
+            $model = new RegisterModel();
+            $adminModel = new UserModel(App::$app->request->data());
+            $adminModel->isAdmin = true;
 
-            if ($model->validate($model->newAdminRules()) && $model->verifyNoDuplicate() && $model->updateDatabase()) {
+            if ($model->validate() && $model->verifyNoDuplicate() && $model->registerUser($adminModel)) {
                 App::$app->session->setFlashMessage('success', 'Successfully created new admin account');
                 redirect();
             }
@@ -142,13 +143,13 @@ class AdminController extends Controller
         $this->render('add_admin', ['model' => $model, 'isAdmin' => true]);
     }
 
-    public function find_student(): void
+    public function find_user(): void
     {
         $data = [];
 
         if (App::$app->request->isMethod('post')) {
             $query = '%' . App::$app->request->data()['query'] . '%';
-            $data = App::$app->database->findAll('users', conditions: ['id' => $query, 'class'=> $query, 'name'=> $query], isSearch: true);
+            $data = App::$app->database->findAll('users', conditions: ['uuid' => $query, 'username'=> $query, 'email'=> $query], isSearch: true);
             App::$app->response->sendJson($data, true);
         }
 

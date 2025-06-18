@@ -124,4 +124,9 @@ class UserModel extends BaseModel
     {
         return !empty($this->uuid) && !empty($this->password) && !empty($this->email) && !empty($this->username);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->isAdmin;
+    }
 }

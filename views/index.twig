@@ -9,11 +9,12 @@
                     <div class="hs-tooltip flex flex-col items-center">
                         <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path(route) }}">
                             {% if values.2 %}
-                                <i class="{% if app.request.path == route %} current-page {% endif %}">
-                                    {{ values.0[0] }}
-                                </i>
+                                <span class="material-icons-stack {% if app.request.path == route %} current-page {% endif %}">
+                                    <i class="material-icons material-icons-stack-2x">{{ values.0[0] }}</i>
+                                    <i class="material-icons material-icons-stack-1x">{{ values.0[1] }}</i>
+                                </span>
                             {% else %}
-                                <i class="material-icons fa-xl {% if app.request.path == route %} current-page {% endif %}">
+                                <i class="material-icons {% if app.request.path == route %} current-page {% endif %}">
                                     {{ values.0 }}
                                 </i>
                             {% endif %}
