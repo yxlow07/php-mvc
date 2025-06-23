@@ -77,7 +77,7 @@ class TwigFunctions extends AbstractExtension
             return '';
         }
         if (is_array($var) || is_object($var)) {
-            return "<pre>" . htmlspecialchars(print_r($var, true)) . '</pre>';
+            return "<pre class='dark:text-white'>" . htmlspecialchars(print_r($var, true)) . '</pre>';
         }
         return htmlspecialchars((string)$var);
     }

@@ -23,7 +23,7 @@
 }
 
 .c-input {
-    @apply py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500;
+    @apply py-3 px-4 block w-full border border-blue-300 rounded-lg text-sm focus:ring-blue-500 focus:border-blue-500 dark:text-white;
 }
 
 .c-form-btn {
@@ -32,43 +32,4 @@
 
 .c-btn {
     @apply rounded-md bg-green-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-800 focus:shadow-none active:bg-green-700 hover:bg-green-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2
-}
-
-.material-icons-stack {
-    position: relative;
-    width: 2em;
-    height: 2em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.material-icons-stack-2x,
-.material-icons-stack-1x {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 2em;
-    height: 2em;
-    text-align: center;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-}
-
-.material-icons-stack-2x {
-    z-index: 2;
-    background: none;
-}
-
-.material-icons-stack-1x {
-    z-index: 1;
-    font-size: 0.75em !important;
-    color: crimson;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.13);
-    left: 100%;
-    top: 100%;
-    transform: translate(-75%, -75%);
 }

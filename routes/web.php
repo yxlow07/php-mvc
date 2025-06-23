@@ -18,6 +18,7 @@ $routes->GETPOST('/register',[AuthController::class, 'register'])->only($guest);
 $routes->GETPOST('/login', [AuthController::class, 'login'])->only($guest);
 $routes->GETPOST('/logout', [AuthController::class, 'logout'])->only('auth');
 $routes->GET('/profile', [UserController::class, 'profilePage'])->only($user);
+$routes->POST('/profile/upload-picture', [UserController::class, 'uploadPicture'])->only($user);
 
 // UserModel static pages
 $routes->GET('/forgot_password', 'forgot_password')->only($guest);

@@ -1,5 +1,4 @@
 @echo off
-REM This script installs the necessary components for the application
 
 echo Installing npm modules...
 npm install

@@ -7,7 +7,6 @@ use core\Models\ValidationModel;
 
 class ProfileModel extends ValidationModel
 {
-    // TODO: Change to new app
     const UPDATE_PROFILE = 1;
     const UPDATE_PASSWORD = 2;
 
@@ -18,20 +17,19 @@ class ProfileModel extends ValidationModel
     public string $password = '';
     public ?string $bio = '';
     public ?string $profilePictureId = '';
-    public string|array|false|null $subjects = []; // JSON
+    public string|array|false|null $subjects = [];
     public string $email = '';
-    public string|false|array|null $info = ''; // JSON
+    public string|false|array|null $info = '';
     public bool $isAdmin = false;
     public string $created_at = '';
     public string $updated_at = '';
-    public int $type = 1; // TODO: Change to csrf token
+    public int $type = 1;
 
     public function __construct($data = [])
     {
         if (empty($data)) {
             $data = (array) App::$app->user;
         }
-
         parent::loadData($data);
     }
 
@@ -49,36 +47,48 @@ class ProfileModel extends ValidationModel
 
     public function verifyNoDuplicate(array $old_data = []): bool
     {
-        $oldId = $this->getOldData($old_data, 'id', App::$app->user);
-        if ($oldId == $this->id) {
+        $oldId = $this->getOldData($old_data, 'uuid', App::$app->user);
+        if ($oldId == $this->uuid) {
             return true;
         }
-        $check = RegisterModel::checkDatabaseForDuplicates($this->id);
+        $check = RegisterModel::checkDatabaseForDuplicates($this->uuid);
         if (!$check) {
-            $this->addError(false, 'id', self::RULE_UNIQUE);
+            $this->addError(false, 'uuid', self::RULE_UNIQUE);
         }
         return $check;
     }
 
     public function updateDatabase(array $old_data = []): bool
     {
-        $oldId = $this->getOldData($old_data, 'id', App::$app->user);
-        if (!empty($this->password)) {
+        $oldId = $this->getOldData($old_data, 'uuid', App::$app->user);
+
+        // Hash password only if changed
+        if (!empty($this->password) && $this->password !== App::$app->user->password) {
             $this->password = password_hash($this->password, PASSWORD_BCRYPT);
         } else {
             $this->password = App::$app->user->password;
         }
-        $this->info = json_encode($this->info);
-        return App::$app->database->update('users', ['id', 'name', 'class', 'phone', 'password', 'info'], $this, ['id' => $oldId]);
-    }
 
-    public function checkPassword(): bool
-    {
-        $check = password_verify($this->kLMurid, App::$app->user->kLMurid);
-        if (!$check) {
-            $this->addError(false, 'kLMurid', self::RULE_MATCH, ['match', 'is incorrect']);
+        if (empty($this->info)) {
+            $this->info = '{}';
         }
-        return $check;
+        if (empty($this->subjects)) {
+            $this->subjects = '{}';
+        }
+
+        if (is_array($this->info)) {
+            $this->info = json_encode($this->info);
+        }
+        if (is_array($this->subjects)) {
+            $this->subjects = json_encode($this->subjects);
+        }
+
+        return App::$app->database->update(
+            'users',
+            ['uuid', 'username', 'name', 'phone', 'password', 'bio', 'profilePictureId', 'subjects', 'email', 'info', 'isAdmin', 'updated_at'],
+            $this,
+            ['uuid' => $oldId]
+        );
     }
 
     private function getOldData(array $old_data, string $toFind, object|string $fallback)

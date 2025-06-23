@@ -7,7 +7,9 @@
     <link rel="stylesheet" href="{{ css('output.css') }}">
     <script src="{{ js('jquery.js') }}"></script>
     <script src="{{ js('app.js') }}"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ css('pro.min.css') }}">
+    <link rel="stylesheet" href="{{ css('brands.css') }}">
+    <script src="{{ js('duotone.js') }}" crossorigin="anonymous"></script>
 </head>
 <body class="c-body">
 
@@ -24,14 +26,12 @@
                     {% for route, values in app.nav %}
                         <a class="c-nav-items-tooltip" href="{{ path(route) }}">
                             {% if values.2 %}
-                                <span class="material-icons-stack {% if app.request.path == route %} current-page {% endif %}">
-                                    <i class="material-icons material-icons-stack-2x">{{ values.0[0] }}</i>
-                                    <i class="material-icons material-icons-stack-1x">{{ values.0[1] }}</i>
-                                </span>
+                                <span class="fa-stack {% if app.request.path == route %} current-page fa-beat {% endif %}">
+                                        <i class="fa-duotone fa-xl fa-{{ values.0[0] }} fa-stack-1x"></i>
+                                        <i class="fa-duotone fa-{{ values.0[1] }} fa-stack-4x text-teal-400" style="position: absolute; bottom: -5px; right: -5px;"></i>
+                                    </span>
                             {% else %}
-                                <i class="material-icons {% if app.request.path == route %} current-page {% endif %}">
-                                    {{ values.0 }}
-                                </i>
+                                <i class="fa-duotone fa-xl fa-{{ values.0 }} {% if app.request.path == route %} current-page fa-beat {% endif %}"></i>
                             {% endif %}
                         </a>
                     {% endfor %}

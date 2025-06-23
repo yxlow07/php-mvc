@@ -61,7 +61,9 @@ class LoginModel extends ValidationModel
     {
         /** @var UserModel|false $user */
         $user = App::$app->database->findOne('users', conditions: ['username' => $username], class: UserModel::class);
-
+        if (!$user) {
+            $user = App::$app->database->findOne('users', conditions: ['uuid' => $username], class: UserModel::class);
+        }
         return $user;
     }
 

@@ -1,0 +1,14 @@
+#!/usr/bin/env php
+
+<?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+// Read command line arguments
+if (count($argv) < 2) {
+    echo "Usage: php create <command>\n";
+    exit(1);
+}
+
+// Parse command -> argv 1 to the end
+$command = array_slice($argv, 1);
+print_r($command);

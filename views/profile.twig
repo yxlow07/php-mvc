@@ -8,6 +8,12 @@
         {% else %}
             <img class="w-32 h-32 rounded-full mx-auto" src="https://cdn-icons-png.flaticon.com/512/1144/1144760.png" alt="{{ model.username }}">
         {% endif %}
+        <div class="text-center mt-2">
+            <button onclick="openImageModal()" class="text-blue-700 hover:text-blue-500">
+                <i class="fas fa-plus-circle"></i>
+                Change Picture
+            </button>
+        </div>
     </div>
     <div class="p-2">
         <h3 class="text-center dark:text-white text-3xl text-gray-900 font-medium leading-8">{{ model.name }}</h3>
@@ -66,4 +72,23 @@
         </table>
     </div>
 </div>
+<div id="imageModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div class="bg-white dark:bg-slate-800 rounded-lg p-6 w-96 shadow-lg relative dark:text-white">
+        <button onclick="closeImageModal()" class="absolute top-2 right-2 text-gray-400 hover:text-gray-700">&times;</button>
+        <h2 class="text-xl mb-4 ">Upload Profile Picture</h2>
+        <form id="uploadForm" enctype="multipart/form-data" method="post" action="./profile/upload-picture">
+            <input type="file" name="profile_picture" accept="image/*" required class="mb-4 w-full border border-gray-300 rounded p-2">
+            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700">Upload</button>
+        </form>
+    </div>
+</div>
+<script>
+    function openImageModal() {
+        document.getElementById('imageModal').classList.remove('hidden');
+    }
+
+    function closeImageModal() {
+        document.getElementById('imageModal').classList.add('hidden');
+    }
+</script>
 {% endblock %}

@@ -28,22 +28,22 @@ class UserController extends Controller
     {
         $navItems = [
             'user' => [
-                '/profile' => ['person', 'Profile'],
+                '/profile' => ['user', 'Profile'],
             ],
             'admin' => [
-                '/add_admin' => [['badge', 'add'], 'Add Admin', true],
-                '/crud_users' => [['group', 'edit'], 'Edit Users', true],
-                '/find_user' => [['group', 'search'], 'Find User Record', true],
+                '/add_admin' => [['user-tie', 'plus'], 'Add Admin', true],
+                '/crud_users' => [['users', 'pencil'], 'Edit Users', true],
+                '/find_user' => [['users', 'magnifying-glass'], 'Find User Record', true],
             ],
             'general' => [
-                '/' => ['home', 'Homepage'],
+                '/' => ['house', 'Homepage'],
             ],
             'authenticated' => [
-                '/logout' => ['logout', 'Logout'],
+                '/logout' => ['right-from-bracket', 'Logout'],
             ],
             'guest' => [
-                '/login' => ['login', 'Login'],
-                '/register' => ['person_add', 'Register'],
+                '/login' => ['right-to-bracket', 'Login'],
+                '/register' => ['user-plus', 'Register'],
             ],
         ];
 
@@ -86,5 +86,51 @@ class UserController extends Controller
             App::$app->session->setFlashMessage('success', 'Update successfully');
             LoginModel::setNewUpdatedUserData($model->id);
         }
+    }
+
+    public function uploadPicture(): void
+    {
+        $data = App::$app->request->files();
+
+        if (isset($data['profile_picture'])) {
+            $curl = curl_init();
+            curl_setopt_array($curl, [
+                CURLOPT_URL => 'https://api.imgur.com/3/image',
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => [
+                    'image' => new \CurlFile($data['profile_picture']['tmp_name'], $data['profile_picture']['type'], $data['profile_picture']['name'])
+                ],
+                CURLOPT_HTTPHEADER => [
+                    'Authorization: Client-ID '.$_ENV['IMGUR_CLIENT_ID'],
+                ],
+            ]);
+
+            $response = curl_exec($curl);
+            curl_close($curl);
+            $response = json_decode($response, true);
+            if ($response['status'] == 200) {
+                $model = new ProfileModel(App::$app->request->data());
+                $model->profilePictureId = $response['data']['link'];
+
+                if ($model->updateDatabase()) {
+                    App::$app->session->setFlashMessage('success', 'Profile picture updated successfully');
+                    LoginModel::setNewUpdatedUserData($model->uuid);
+                    redirect('/profile');
+                } else {
+                    App::$app->session->setFlashMessage('error', 'Failed to update profile picture');
+                }
+            } else {
+                App::$app->session->setFlashMessage('error', 'Failed to upload image to Imgur');
+            }
+        }
+
+        App::$app->session->setFlashMessage('error', 'Failed to upload image');
+        redirect('/profile');
     }
 }

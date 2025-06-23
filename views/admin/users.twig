@@ -9,23 +9,27 @@
                     <table class="max-w-screen-xl w-full divide-y divide-gray-200 dark:divide-gray-700">
                         <thead>
                         <tr>
-                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User ID</th>
-                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User Name</th>
-                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User Class</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">UUID</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Username</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Email</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Name</th>
+                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Is Admin?</th>
                             <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Read, Update, Delete Actions</th>
                         </tr>
                         </thead>
                         <tbody class="divide-y divide-gray-200 dark:divide-gray-700 text-center">
                         {% for user in users %}
-                            {% set id = user.id %}
+                            {% set username = user.username %}
                             <tr class="hover:bg-gray-100 dark:hover:bg-gray-700">
-                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ id }}</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{{ user.uuid }}</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.username }}</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.email }}</td>
                                 <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.name }}</td>
-                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.class }}</td>
+                                <td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">{{ user.isAdmin }}</td>
                                 <td class="px-0 py-3 whitespace-normal text-center text-gray-700 dark:text-gray-300 text-sm font-medium">
                                     <!-- Icon for READ start -->
                                     <div class="hs-tooltip inline-block [--placement:bottom]">
-                                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path() }}/users/{{ id }}/read">
+                                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path() }}/users/{{ username }}/read">
                                             <i class="fa-duotone fa-book fa-xl"></i>
                                             <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Read user data</span>
                                         </a>
@@ -34,7 +38,7 @@
 
                                     <!-- Icon for EDIT start -->
                                     <div class="hs-tooltip inline-block [--placement:bottom]">
-                                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path() }}/users/{{ id }}/update">
+                                        <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path() }}/users/{{ username }}/update">
                                             <i class="fa-duotone fa-pencil fa-xl"></i>
                                             <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Update user data</span>
                                         </a>
@@ -43,7 +47,7 @@
 
                                     <!-- Icon for DELETE start -->
                                     <div class="hs-tooltip inline-block [--placement:bottom]">
-                                        <a class="delete-user c-nav-items-tooltip hs-tooltip-toggle" href="#" data-id="{{ id }}">
+                                        <a class="delete-user c-nav-items-tooltip hs-tooltip-toggle" href="#" data-id="{{ username }}">
                                             <i class="fa-duotone fa-trash fa-xl"></i>
                                             <span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Delete record</span>
                                         </a>

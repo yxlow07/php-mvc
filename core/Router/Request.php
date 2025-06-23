@@ -36,6 +36,11 @@ class Request
         return $data;
     }
 
+    public function files(): array
+    {
+        return $_FILES;
+    }
+
     public function path($remove = null): string
     {
         $path = preg_replace('#/+#', '/', rawurldecode($_SERVER['REQUEST_URI']));
@@ -103,6 +108,35 @@ class Request
             'jpg' => header('Content-Type: image/jpeg'),
             'png' => header('Content-Type: image/png'),
             'json' => header('Content-Type: application/json'),
+            'woff2' => header('Content-Type: application/font-woff2'),
+            'woff' => header('Content-Type: application/font-woff'),
+            'ttf' => header('Content-Type: application/font-sfnt'),
+            'svg' => header('Content-Type: image/svg+xml'),
+            'eot' => header('Content-Type: application/vnd.ms-fontobject'),
+            'otf' => header('Content-Type: font/otf'),
+            'xml' => header('Content-Type: application/xml'),
+            'pdf' => header('Content-Type: application/pdf'),
+            'txt' => header('Content-Type: text/plain'),
+            'csv' => header('Content-Type: text/csv'),
+            'zip' => header('Content-Type: application/zip'),
+            'mp4' => header('Content-Type: video/mp4'),
+            'webm' => header('Content-Type: video/webm'),
+            'mp3' => header('Content-Type: audio/mpeg'),
+            'wav' => header('Content-Type: audio/wav'),
+            'ogg' => header('Content-Type: audio/ogg'),
+            'jsonld' => header('Content-Type: application/ld+json'),
+            'rss' => header('Content-Type: application/rss+xml'),
+            'atom' => header('Content-Type: application/atom+xml'),
+            'wasm' => header('Content-Type: application/wasm'),
+            'webp' => header('Content-Type: image/webp'),
+            'avif' => header('Content-Type: image/avif'),
+            'flac' => header('Content-Type: audio/flac'),
+            'mkv' => header('Content-Type: video/x-matroska'),
+            'mov' => header('Content-Type: video/quicktime'),
+            'avi' => header('Content-Type: video/x-msvideo'),
+            'm4a' => header('Content-Type: audio/mp4'),
+            '3gp' => header('Content-Type: video/3gpp'),
+            '3g2' => header('Content-Type: video/3gpp2'),
             default => null,
         };
     }

@@ -55,4 +55,16 @@ class App
     {
         $this->{$name} = $value;
     }
+
+    /**
+     * @throws \Exception
+     */
+    public static function __callStatic(string $name, array $arguments)
+    {
+        if (property_exists(self::$app, $name)) {
+            return self::$app->{$name};
+        } else {
+            throw new \Exception("Property {$name} does not exist in App class.");
+        }
+    }
 }

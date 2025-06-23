@@ -9,17 +9,15 @@
                     <div class="hs-tooltip flex flex-col items-center">
                         <a class="c-nav-items-tooltip hs-tooltip-toggle" href="{{ path(route) }}">
                             {% if values.2 %}
-                                <span class="material-icons-stack {% if app.request.path == route %} current-page {% endif %}">
-                                    <i class="material-icons material-icons-stack-2x">{{ values.0[0] }}</i>
-                                    <i class="material-icons material-icons-stack-1x">{{ values.0[1] }}</i>
-                                </span>
+                                <span class="fa-stack {% if app.request.path == route %} current-page fa-beat {% endif %}">
+                                        <i class="fa-duotone fa-xl fa-{{ values.0[0] }} fa-stack-1x"></i>
+                                        <i class="fa-duotone fa-{{ values.0[1] }} fa-stack-4x text-teal-400" style="position: absolute; bottom: -5px; right: -5px;"></i>
+                                    </span>
                             {% else %}
-                                <i class="material-icons {% if app.request.path == route %} current-page {% endif %}">
-                                    {{ values.0 }}
-                                </i>
+                                <i class="fa-duotone fa-xl fa-{{ values.0 }} {% if app.request.path == route %} fa-beat current-page {% endif %}"></i>
                             {% endif %}
                         </a>
-                        <div class="pt-3">
+                        <div class="pt-3 mx-2">
                             <a href="{{ path(route) }}" class="c-links"><span>{{ values.1 }}</span></a>
                         </div>
                     </div>
