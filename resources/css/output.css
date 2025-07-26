@@ -447,6 +447,9 @@
   .max-w-xl {
     max-width: var(--container-xl);
   }
+  .min-w-fit {
+    min-width: fit-content;
+  }
   .min-w-full {
     min-width: 100%;
   }
@@ -1489,6 +1492,34 @@
     --tw-shadow: 0 0 #0000;
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+}
+.c-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+}
+.c-tooltip {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background-color: #222;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 4px 8px;
+  position: absolute;
+  z-index: 10;
+  top: 125%;
+  bottom: auto;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.2s;
+  font-size: 0.75rem;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.c-tooltip-wrapper:hover .c-tooltip, .c-tooltip-wrapper:focus-within .c-tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 @property --tw-space-x-reverse {
   syntax: "*";

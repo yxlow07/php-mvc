@@ -33,3 +33,35 @@
 .c-btn {
     @apply rounded-md bg-green-700 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-green-800 focus:shadow-none active:bg-green-700 hover:bg-green-800 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none ml-2
 }
+
+.c-tooltip-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.c-tooltip {
+    visibility: hidden;
+    opacity: 0;
+    width: max-content;
+    background-color: #222;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 4px 8px;
+    position: absolute;
+    z-index: 10;
+    top: 125%;
+    bottom: auto;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: opacity 0.2s;
+    font-size: 0.75rem;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.c-tooltip-wrapper:hover .c-tooltip,
+.c-tooltip-wrapper:focus-within .c-tooltip {
+    visibility: visible;
+    opacity: 1;
+}

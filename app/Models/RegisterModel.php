@@ -44,7 +44,7 @@ class RegisterModel extends ValidationModel
     {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
         $this->uuid = App::$app->session->generateUUID('users');
-        return App::$app->database->insert('users', ['uuid', 'username', 'email', 'password'], is_null($userModel) ? $this : $userModel);
+        return App::$app->database->insert('users', ['uuid', 'username', 'email', 'password', 'isAdmin'], is_null($userModel) ? $this : $userModel);
     }
 
     public function verifyNoDuplicate(): bool

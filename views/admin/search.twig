@@ -24,9 +24,11 @@
                                     <table class="max-w-screen-xl w-full divide-y divide-gray-200 dark:divide-gray-700" id="res">
                                         <thead>
                                         <tr>
-                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User ID</th>
-                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User Name</th>
-                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">User Class</th>
+                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">UUID</th>
+                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Username</th>
+                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Email</th>
+                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Name</th>
+                                            <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Is Admin?</th>
                                             <th scope="col" class="px-6 py-3 text-center font-bold text-xs text-gray-500 dark:text-gray-300 uppercase">Read, Update, Delete Actions</th>
                                         </tr>
                                         </thead>
@@ -68,25 +70,33 @@
 
                             response.forEach(function(user) {
                                 let row = '<tr class="hover:bg-gray-100 dark:hover:bg-gray-700">';
-                                row += '<td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">' + user.id + '</td>';
+                                row += '<td class="px-6 py-3 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">' + user.uuid + '</td>';
+                                row += '<td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">' + user.username + '</td>';
+                                row += '<td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">' + user.email + '</td>';
                                 row += '<td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">' + user.name + '</td>';
-                                row += '<td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">' + user.class + '</td>';
+                                row += '<td class="px-6 py-3 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">' + (user.isAdmin ? 'Yes' : 'No') + '</td>';
                                 row += '<td class="px-0 py-3 whitespace-normal text-center text-gray-700 dark:text-gray-300 text-sm font-medium">';
-                                row += '<div class="hs-tooltip inline-block [--placement:bottom]">';
-                                row += '<a class="c-nav-items-tooltip hs-tooltip-toggle" href="' + `{{ path() }}` + '/users/' + user.id + '/read">';
+                                // Read
+                                row += '<div class="c-tooltip-wrapper">';
+                                row += '<a class="c-nav-items-tooltip" href="' + `{{ path() }}` + '/users/' + user.username + '/read">';
                                 row += '<i class="fa-duotone fa-book fa-xl"></i>';
-                                row += '<span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Read user data</span>';
-                                row += '</a></div>';
-                                row += '<div class="hs-tooltip inline-block [--placement:bottom]">';
-                                row += '<a class="c-nav-items-tooltip hs-tooltip-toggle" href="' + `{{ path() }}` + '/users/' + user.id + '/update">';
+                                row += '</a>';
+                                row += '<span class="c-tooltip">Read user data</span>';
+                                row += '</div>';
+                                // Update
+                                row += '<div class="c-tooltip-wrapper">';
+                                row += '<a class="c-nav-items-tooltip" href="' + `{{ path() }}` + '/users/' + user.username + '/update">';
                                 row += '<i class="fa-duotone fa-pencil fa-xl"></i>';
-                                row += '<span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Update user data</span>';
-                                row += '</a></div>';
-                                row += '<div class="hs-tooltip inline-block [--placement:bottom]">';
-                                row += '<a class="c-nav-items-tooltip hs-tooltip-toggle delete" href="' + `{{ path() }}` + '/users/' + user.id + '/delete">';
+                                row += '</a>';
+                                row += '<span class="c-tooltip">Update user data</span>';
+                                row += '</div>';
+                                // Delete
+                                row += '<div class="c-tooltip-wrapper">';
+                                row += '<a class="c-nav-items-tooltip delete" href="' + `{{ path() }}` + '/users/' + user.username + '/delete">';
                                 row += '<i class="fa-duotone fa-trash fa-xl"></i>';
-                                row += '<span class="hs-tooltip-content hs-tooltip-shown:opacity-100 hs-tooltip-shown:visible c-tooltip" role="tooltip">Delete user</span>';
-                                row += '</a></div>';
+                                row += '</a>';
+                                row += '<span class="c-tooltip">Delete user</span>';
+                                row += '</div>';
                                 row += '</td></tr>';
                                 $('#search-result').append(row);
                                 $('.delete').on('click', function (e) {

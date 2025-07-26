@@ -16,7 +16,7 @@
 <!-- ========== HEADER ========== -->
 <header id="header" class="sticky top-0 inset-x-0 flex flex-wrap md:justify-start md:flex-nowrap z-50 w-full bg-gray-200 border-b text-sm py-1.5 md:py-2 dark:bg-slate-900 dark:border-gray-700">
     <nav class="flex flex-nowrap basis-full items-center w-full mx-auto px-4 md:px-8 lg:max-w-[90rem]" aria-label="Global">
-        <a class="flex dark:text-white text-gray-500 w-full rounded-md dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="{{ path() }}">
+        <a class="flex dark:text-white text-gray-500 min-w-fit rounded-md dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" href="{{ path() }}">
             <p class="m-2 font-bold">Study Scroll</p>
         </a>
 
@@ -24,16 +24,19 @@
             <div class="flex items-center relative z-10 ms-auto">
                 <div class="lg:ms-1 flex">
                     {% for route, values in app.nav %}
-                        <a class="c-nav-items-tooltip" href="{{ path(route) }}">
-                            {% if values.2 %}
-                                <span class="fa-stack {% if app.request.path == route %} current-page fa-beat {% endif %}">
+                        <div class="c-tooltip-wrapper">
+                            <a class="c-nav-items-tooltip" href="{{ path(route) }}">
+                                {% if values.2 %}
+                                    <span class="fa-stack {% if app.request.path == route %} current-page fa-beat {% endif %}">
                                         <i class="fa-duotone fa-xl fa-{{ values.0[0] }} fa-stack-1x"></i>
                                         <i class="fa-duotone fa-{{ values.0[1] }} fa-stack-4x text-teal-400" style="position: absolute; bottom: -5px; right: -5px;"></i>
                                     </span>
-                            {% else %}
-                                <i class="fa-duotone fa-xl fa-{{ values.0 }} {% if app.request.path == route %} current-page fa-beat {% endif %}"></i>
-                            {% endif %}
-                        </a>
+                                {% else %}
+                                    <i class="fa-duotone fa-xl fa-{{ values.0 }} {% if app.request.path == route %} current-page fa-beat {% endif %}"></i>
+                                {% endif %}
+                            </a>
+                            <span class="c-tooltip">{{ values.1 }}</span>
+                        </div>
                     {% endfor %}
                 </div>
             </div>

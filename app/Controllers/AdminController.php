@@ -128,19 +128,37 @@ class AdminController extends Controller
 
     public function add_admin(): void
     {
-        $model = new UserModel();
-        if (App::$app->request->isMethod('post')) {
-            $model = new RegisterModel();
-            $adminModel = new UserModel(App::$app->request->data());
-            $adminModel->isAdmin = true;
+        $model = new RegisterModel(App::$app->request->data());
 
-            if ($model->validate() && $model->verifyNoDuplicate() && $model->registerUser($adminModel)) {
-                App::$app->session->setFlashMessage('success', 'Successfully created new admin account');
-                redirect();
+        if (App::$app->request->isMethod('post')) {
+            if ($model->validate($this->add_admin_rules()) && $model->verifyNoDuplicate()) {
+                $adminModel = new UserModel();
+                $adminModel->uuid = App::$app->session->generateUUID('users');
+                $adminModel->username = $model->username;
+                $adminModel->email = $model->email;
+                $adminModel->password = password_hash($model->password, PASSWORD_BCRYPT);
+                $adminModel->isAdmin = true;
+
+                if ($model->registerUser($adminModel)) {
+                    App::$app->session->setFlashMessage('success', 'Successfully created new admin account');
+                    redirect('/crud_users');
+                } else {
+                    App::$app->session->setFlashMessage('error', 'Failed to create new admin account');
+                }
             }
         }
 
         $this->render('add_admin', ['model' => $model, 'isAdmin' => true]);
+    }
+
+    public function add_admin_rules(): array
+    {
+        return [
+            'username' => [ValidationModel::RULE_REQUIRED, [ValidationModel::RULE_MIN, 'min' => 3], [ValidationModel::RULE_MAX, 'max' => 15]],
+            'email' => [ValidationModel::RULE_REQUIRED, [ValidationModel::RULE_EMAIL]],
+            'password' => [ValidationModel::RULE_REQUIRED, [ValidationModel::RULE_MIN, 'min' => 2], [ValidationModel::RULE_MAX, 'max' => 15]], // TODO: Update for prod
+            'confirm' => [ValidationModel::RULE_REQUIRED, [ValidationModel::RULE_MATCH, 'match' => 'password', 'matchMsg' => 'must match with password']],
+        ];
     }
 
     public function find_user(): void
